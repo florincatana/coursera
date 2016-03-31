@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import edu.princeton.cs.algs4.Accumulator;
 import edu.princeton.cs.algs4.Picture;
 import edu.princeton.cs.algs4.StdOut;
 
@@ -205,10 +206,16 @@ public class SeamCarver {
 	}
 	
 	public static void main(String args[]) {
-		Picture picture = new Picture("8x1.png");
-		SeamCarver sc = new SeamCarver(picture);
-		sc.removeVerticalSeam(new int[] {
-		        -1
-		});
+		
+		Arrays.asList(Arrays.asList(0, 0, 14, 14), Arrays.asList(0, 6, 8, 14), Arrays.asList(6, 6, 8, 8))
+			.stream().forEach( l -> {
+					Accumulator stats = new Accumulator();
+					l.stream().forEach(e -> stats.addDataValue(e));
+			        StdOut.printf("N      = %d\n",   stats.count());
+			        StdOut.printf("mean   = %.5f\n", stats.mean());
+			        StdOut.printf("stddev = %.5f\n", stats.stddev());
+			        StdOut.printf("var    = %.5f\n", stats.var());
+			});
+			        
 	}
 }
