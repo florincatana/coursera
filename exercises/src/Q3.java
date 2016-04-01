@@ -11,7 +11,7 @@ public class Q3 {
 	private int[] size; // size[id] = number of vertices in given component
 	private int count; // number of connected components
 	
-	private Q3(Graph G, int s) {
+	public Q3(Graph G, int s) {
 		marked = new boolean[G.V()];
 		id = new int[G.V()];
 		size = new int[G.V()];

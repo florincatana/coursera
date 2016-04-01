@@ -1,5 +1,4 @@
 
-import edu.princeton.cs.algs4.Graph;
 import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.StdOut;
 
@@ -12,14 +11,14 @@ public class Q2 {
 	
 	private Queue<String> preorder = new Queue<String>();
 
-	public Q2(Graph G, int s) {
+	public Q2(QGraph G, int s) {
 		marked = new boolean[G.V()];
 		distTo = new int[G.V()];
 		edgeTo = new int[G.V()];
 		bfs(G, s);
 	}
 	
-	private void bfs(Graph G, int s) {
+	private void bfs(QGraph G, int s) {
 		Queue<Integer> q = new Queue<Integer>();
 		for (int v = 0; v < G.V(); v++)
 			distTo[v] = INFINITY;
@@ -29,7 +28,7 @@ public class Q2 {
 		
 		while (!q.isEmpty()) {
 			int v = q.dequeue();
-			preorder.enqueue(Character.toString((char) (v + 65)));
+			preorder.enqueue(G.name(v));
 			for (int w : G.adj(v)) {
 				if (!marked[w]) {
 					edgeTo[w] = v;
@@ -46,7 +45,7 @@ public class Q2 {
 	}
 	
 	public static void main(String[] args) {
-		Graph G = QUtils.readGraphFromFile("q2.txt");
+		QGraph G = QUtils.readQGraphFromFile("q2.txt");
 		Q2 q2 = new Q2(G, 0);
 		StdOut.println(q2.getOrder());
 	}
