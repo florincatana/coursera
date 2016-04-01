@@ -1,6 +1,7 @@
 package util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.TreeMap;
@@ -87,6 +88,16 @@ public class QGraph {
 		if (v < 0 || v >= V)
 			throw new IndexOutOfBoundsException("vertex " + v + " is not between 0 and " + (V - 1));
 	}
+	
+    public QGraph reverse() {
+    	QGraph R = new QGraph(Arrays.asList(keys));
+        for (int v = 0; v < V; v++) {
+            for (int w : adj(v)) {
+                R.addEdge(w, v);
+            }
+        }
+        return R;
+    }
 	
 	public String toString() {
 		StringBuilder s = new StringBuilder();
