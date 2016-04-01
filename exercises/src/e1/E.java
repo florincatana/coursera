@@ -1,4 +1,8 @@
+package e1;
+
 import edu.princeton.cs.algs4.StdOut;
+import util.QGraph;
+import util.QUtils;
 
 public class E {
 	public static void main(String[] args) {

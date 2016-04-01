@@ -1,3 +1,5 @@
+package util;
+
 import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,7 +21,9 @@ public final class QUtils {
 				.map(s -> s.trim())
 				.filter(s -> s.length() > 0 && s.contains(":"))
 				.map(s -> s.split(":"))
-				.map(s -> new AbstractMap.SimpleEntry<String, String>(s[0], s[1]))
+				.filter(a -> a.length == 2)
+				.map(s -> new AbstractMap.SimpleEntry<String, String>(s[0].trim(), s[1].trim()))
+				.filter(e -> e.getKey().length() > 0 && e.getValue().length() > 0)
 				.flatMap(e -> Arrays.asList(e.getValue().split(" ")).stream()
 					.map(s->s.trim()).filter(s -> s.length() >0)
 					.map(s -> new AbstractMap.SimpleEntry<String, String>(e.getKey(), s)))

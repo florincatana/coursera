@@ -1,3 +1,5 @@
+package util;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -47,7 +49,6 @@ public class QGraph {
 		validateVertex(v);
 		validateVertex(w);
 		adj.get(v).add(w);
-	//	adj.get(w).add(v);
 		indegree[w]++;
 		E++;
 	}

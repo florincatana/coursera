@@ -1,6 +1,9 @@
+package e1;
 
 import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.StdOut;
+import util.QGraph;
+import util.QUtils;
 
 
 public class Q2 {

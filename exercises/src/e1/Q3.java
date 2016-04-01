@@ -1,11 +1,12 @@
+package e1;
 
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.stream.IntStream;
 
-import edu.princeton.cs.algs4.Graph;
 import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.StdOut;
+import util.QGraph;
+import util.QUtils;
 
 
 public class Q3 {
