@@ -40,13 +40,13 @@ public class Q2 {
 		}
 	}
 	
-	public Iterable<String> getOrder() {
+	public Iterable<String> getResult() {
 		return preorder;
 	}
 	
 	public static void main(String[] args) {
 		QGraph G = QUtils.readQGraphFromFile("q2.txt");
 		Q2 q2 = new Q2(G, 0);
-		StdOut.println(q2.getOrder());
+		StdOut.println(q2.getResult());
 	}
 }

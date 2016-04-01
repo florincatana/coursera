@@ -21,7 +21,7 @@ public final class QUtils {
 				.map(s -> s.split(":"))
 				.map(s -> new AbstractMap.SimpleEntry<String, String>(s[0], s[1]))
 				.flatMap(e -> Arrays.asList(e.getValue().split(" ")).stream()
-					.map(s->s.trim()).filter(s -> s.length() == 1)
+					.map(s->s.trim()).filter(s -> s.length() >0)
 					.map(s -> new AbstractMap.SimpleEntry<String, String>(e.getKey(), s)))
 				.collect(Collectors.toList());
 		//StdOut.println(edges);
@@ -29,6 +29,7 @@ public final class QUtils {
 		Collection<String> keys = edges.stream()
 				.flatMap(e -> Arrays.asList(e.getKey(), e.getValue()).stream())
 				.distinct()
+				.sorted()
 				.collect(Collectors.toList());
 		//StdOut.println(keys);
 		
@@ -48,6 +49,7 @@ public final class QUtils {
 				.map(s -> new AbstractMap.SimpleEntry<String, String>(s[0], s[1]))
 				.flatMap(e -> Arrays.asList(e.getValue().split(" ")).stream()
 					.map(s->s.trim()).filter(s -> s.length() == 1)
+					//.sorted()
 					.map(s -> new AbstractMap.SimpleEntry<Integer, Integer>(e.getKey().codePointAt(0) - 65, s.codePointAt(0) - 65))
 					.map(s -> (s.getKey() < s.getValue())  ? s : new AbstractMap.SimpleEntry<Integer, Integer>(s.getValue(), s.getKey())))
 				.distinct()

@@ -25,14 +25,14 @@ public class Q1 {
 		preorder.enqueue(G.name(v));
 	}
 	
-	public Iterable<String> getOrder() {
+	public Iterable<String> getResult() {
 		return preorder;
 	}
 	
 	public static void main(String[] args) {
 		QGraph G = QUtils.readQGraphFromFile("q1.txt");
 		Q1 q1 = new Q1(G, 0);
-		StdOut.println(q1.getOrder());
+		StdOut.println(q1.getResult());
 		StdOut.println(G);
 	}
 }
