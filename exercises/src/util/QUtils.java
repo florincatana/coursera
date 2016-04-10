@@ -8,6 +8,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import edu.princeton.cs.algs4.Digraph;
+import edu.princeton.cs.algs4.DirectedEdge;
+import edu.princeton.cs.algs4.Edge;
+import edu.princeton.cs.algs4.EdgeWeightedDigraph;
+import edu.princeton.cs.algs4.EdgeWeightedGraph;
 import edu.princeton.cs.algs4.Graph;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
@@ -91,4 +95,44 @@ public final class QUtils {
 		StdOut.println(edges);
 		return G;
 	}
+	
+	public static EdgeWeightedGraph readEdgeWeightedGraphFromFile(String fileName) {
+            In in = new In(fileName);
+
+            List<Edge> edges = Arrays.asList(in.readAllLines()).stream()
+                            .map(s -> s.trim())
+                            .filter(s -> s.length() > 0 && s.contains("-"))
+                            .map(s -> s.replaceAll("\\s+", " ").split(" "))
+                            .map(s -> new Edge(s[0].split("-")[0].codePointAt(0) - 65, s[0].split("-")[1].codePointAt(0) - 65, Double.parseDouble(s[1])))
+                            .collect(Collectors.toList());
+            
+            Integer V = edges.stream()
+                            .map(e -> Arrays.asList(e.either(), e.other(e.either())))
+                            .flatMap(e -> e.stream())
+                            .max(Integer::compare)
+                            .get() + 1;
+            EdgeWeightedGraph G = new EdgeWeightedGraph(V);
+            edges.stream().forEach(e -> G.addEdge(e));
+           // StdOut.println(edges);
+            
+            return G;	    
+	}
+	
+    public static EdgeWeightedDigraph readEdgeWeightedDigraphFromFile(String fileName) {
+        In in = new In(fileName);
+        
+        List<DirectedEdge> edges = Arrays.asList(in.readAllLines()).stream().map(s -> s.trim()).filter(
+            s -> s.length() > 0 && s.contains("->")).map(s -> s.replaceAll("\\s+", " ").split(" ")).map(
+                s -> new DirectedEdge(s[0].split("->")[0].codePointAt(0) - 65, s[0].split("->")[1].codePointAt(0) - 65,
+                        Double.parseDouble(s[1]))).collect(Collectors.toList());
+        
+        Integer V = edges.stream().map(e -> Arrays.asList(e.from(), e.to())).flatMap(
+            e -> e.stream()).max(Integer::compare).get() + 1;
+        EdgeWeightedDigraph G = new EdgeWeightedDigraph(V);
+        edges.stream().forEach(e -> G.addEdge(e));
+        // StdOut.println(edges);
+        
+        return G;
+    }
+	
 }
