@@ -1,20 +1,19 @@
-package e3;
+package e6;
 
 
-import edu.princeton.cs.algs4.EdgeWeightedGraph;
 import edu.princeton.cs.algs4.StdOut;
-import util.QUtils;
 
 
 public class E {
     public static void main(String[] args) {
-        EdgeWeightedGraph G1 = QUtils.readEdgeWeightedGraphFromFile("q1.txt");
-        Q1 q1 = new Q1(G1);
+        Q1 q1 = new Q1("q1.txt", 2);
         StdOut.println(q1.getResult());
         StdOut.println("-----------------------------------");
-        EdgeWeightedGraph G2 = QUtils.readEdgeWeightedGraphFromFile("q2.txt");
-        Q2 q2 = new Q2(G2, (int)('G'-'A'));
+        Q2 q2 = new Q2("q2.txt", 3);
         StdOut.println(q2.getResult());
+        StdOut.println("-----------------------------------");
+        Q3 q3 = new Q3("q3.txt", 1);
+        StdOut.println(q3.getResult());
         StdOut.println("-----------------------------------");
     }
 }
