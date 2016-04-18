@@ -7,11 +7,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.sun.accessibility.internal.resources.accessibility;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.DirectedEdge;
 import edu.princeton.cs.algs4.Edge;
 import edu.princeton.cs.algs4.EdgeWeightedDigraph;
 import edu.princeton.cs.algs4.EdgeWeightedGraph;
+import edu.princeton.cs.algs4.FlowEdge;
+import edu.princeton.cs.algs4.FlowNetwork;
 import edu.princeton.cs.algs4.Graph;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
@@ -133,6 +138,46 @@ public final class QUtils {
         // StdOut.println(edges);
         
         return G;
+    }
+    
+    public static FlowNetwork readFlowNetworkFromFile(String fileName) {
+        In in = new In(fileName);
+        List<FlowEdge> edges = Arrays.asList(in.readAllLines()).stream().map(s -> s.trim()).filter(
+            s -> s.length() > 0 && s.contains("->")).map(s -> s.replaceAll("\\s+", " ").split(" ")).map(
+                s -> new FlowEdge(s[0].split("->")[0].codePointAt(0) - 65, s[0].split("->")[1].codePointAt(0) - 65,
+                        Double.parseDouble(s[3]), Double.parseDouble(s[1]))).collect(Collectors.toList());
+        //StdOut.println(edges);
+        
+        Integer V = edges.stream().map(e -> Arrays.asList(e.from(), e.to())).flatMap(
+            e -> e.stream()).max(Integer::compare).get() + 1;
+        FlowNetwork G = new FlowNetwork(V);
+        edges.stream().forEach(e -> G.addEdge(e));
+        return G;
+    }
+    
+    public static int[] readArray(String fileName) {
+        In in = new In(fileName);
+        int[] result =  Arrays.asList(in.readAllLines()).stream()
+                .map(s -> s.trim())
+                .filter(s -> s.length() > 0)
+                .map(s -> s.replaceAll("\\s+", " ").split(" "))
+                .flatMapToInt(s -> Arrays.asList(s).stream().mapToInt( v->Integer.valueOf(v).intValue()))
+                .toArray();
+        return result;
+    }
+    
+    public static String[] readStringArray(String fileName) {
+        In in = new In(fileName);
+        List<String> result =  Arrays.asList(in.readAllLines()).stream()
+                .map(s -> s.trim())
+                .filter(s -> s.length() > 0)
+                .map(s -> s.replaceAll("\\s+", " ").split(" "))
+                .flatMap(s -> Arrays.asList(s).stream())
+                .map(s->s.trim())
+                .filter(s -> s.length() > 0)
+                .collect(Collectors.toList());
+        String[] a = new String[result.size()];
+        return result.toArray(a);
     }
 	
 }
