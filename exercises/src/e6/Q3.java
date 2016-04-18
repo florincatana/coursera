@@ -43,7 +43,7 @@ public class Q3 {
         int v = charAt(a[lo], d);
         int i = lo + 1;
         while (i <= gt) {
-            //StdOut.println(String.format("%d %d %d", lt, i, gt));
+            StdOut.println(String.format("%d %d %d", lt, i, gt));
             int t = charAt(a[i], d);
             if      (t < v) exch(a, lt++, i++);
             else if (t > v) exch(a, i, gt--);
