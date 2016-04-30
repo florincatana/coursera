@@ -14,7 +14,8 @@ public class MoveToFront {
         BinaryStdIn.readString().chars().forEach(c -> {
             int index = charList.indexOf(c);
             BinaryStdOut.write((char) index, 8);
-            charList.add(charList.remove(index));
+            charList.remove(index);
+            charList.addFirst(c);
         });
         BinaryStdOut.close();
     }
@@ -23,8 +24,8 @@ public class MoveToFront {
     public static void decode() {
         LinkedList<Integer> charList = createCharList();
         BinaryStdIn.readString().chars().forEach(index -> {
-            charList.add(charList.remove(index));
-            BinaryStdOut.write((char) charList.getLast().intValue(), 8);
+            charList.addFirst(charList.remove(index));
+            BinaryStdOut.write((char) charList.getFirst().intValue(), 8);
         });
         BinaryStdOut.close();
     }
