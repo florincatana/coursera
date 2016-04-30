@@ -3,7 +3,6 @@ import java.util.LinkedList;
 
 import edu.princeton.cs.algs4.BinaryStdIn;
 import edu.princeton.cs.algs4.BinaryStdOut;
-import edu.princeton.cs.algs4.StdOut;
 
 
 public class BurrowsWheeler {
@@ -46,10 +45,8 @@ public class BurrowsWheeler {
         }
         
         int[] next = new int[s.length()];
-        for (int i = 0; i < s.length(); i++) {
-            char c = sortedChars[i];
+        for (int i = 0; i < s.length(); i++)
             next[i] = listArray[sortedChars[i]].removeFirst();
-        }
         
         int currentIndex = first;
         for (int i = 0; i < s.length(); i++) {
@@ -63,7 +60,7 @@ public class BurrowsWheeler {
     // if args[0] is '+', apply Burrows-Wheeler decoding
     public static void main(String[] args) {
         if (args.length < 1) {
-            StdOut.println(
+            System.out.println(
                 "Usage:\n" + "'-', apply move-to-front encoding\n" + "'+', apply move-to-front decoding\n");
             return;
         }

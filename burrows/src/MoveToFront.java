@@ -2,7 +2,6 @@ import java.util.LinkedList;
 
 import edu.princeton.cs.algs4.BinaryStdIn;
 import edu.princeton.cs.algs4.BinaryStdOut;
-import edu.princeton.cs.algs4.StdOut;
 
 
 public class MoveToFront {
@@ -41,7 +40,7 @@ public class MoveToFront {
     // if args[0] is '+', apply move-to-front decoding
     public static void main(String[] args) {
         if (args.length < 1) {
-            StdOut.println(
+            System.out.println(
                 "Usage:\n" + "'-', apply move-to-front encoding\n" + "'+', apply move-to-front decoding\n");
             return;
         }
