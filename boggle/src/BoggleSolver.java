@@ -1,4 +1,3 @@
-import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -17,7 +16,7 @@ public class BoggleSolver {
             this.dictionary.add(s);
         }
     }
-
+    
     // Returns the set of all valid words in the given Boggle board, as an Iterable.
     public Iterable<String> getAllValidWords(BoggleBoard board) {
         Set<String> words = new TreeSet<String>();
@@ -27,20 +26,20 @@ public class BoggleSolver {
         
         for (int r = 0; r < board.rows(); r++)
             for (int c = 0; c < board.cols(); c++)
-                backtracking(board, r, c, new LinkedHashSet<Integer>(), concat("", board.getLetter(r, c)), words);
+                backtracking(board, r, c, new boolean[board.rows()][board.cols()],
+                    concat("", board.getLetter(r, c)), words);
         
         return words;
     }
     
-    private void backtracking(BoggleBoard board, int row, int col, Set<Integer> cells, String currentWord,
+    private void backtracking(BoggleBoard board, int row, int col, boolean[][] marked, String currentWord,
                               Set<String> words) {
         // now words with this prefix
         if (currentWord.length() == 1 && !dictionary.startsWith(currentWord)) {
             return;
         }
         
-        int currentIndex = row * board.cols() + col;
-        cells.add(currentIndex);
+        marked[row][col] = true;
         
         if (isValid(currentWord))
             words.add(currentWord);
@@ -53,16 +52,15 @@ public class BoggleSolver {
                 int c = col + j;
                 if (c < 0 || c >= board.cols())
                     continue;
-                int thisIndex = r * board.cols() + c;
-                if (cells.contains(thisIndex))
+                if (marked[r][c])
                     continue;
                 String newWord = concat(currentWord, board.getLetter(r, c));
                 if (dictionary.startsWith(newWord)) {
-                    backtracking(board, r, c, cells, newWord, words);
+                    backtracking(board, r, c, marked, newWord, words);
                 }
             }
         }
-        cells.remove(currentIndex);
+        marked[row][col] = false;
     }
     
     // Returns the score of the given word if it is in the dictionary, zero otherwise.
@@ -91,15 +89,11 @@ public class BoggleSolver {
         }
     }
     
-   /* private String concat(String word, char letter) {
-        return word + (letter == 'Q' ? "QU" : letter);
-    }*/
-    
     private String concat(String word, char letter) {
-        StringBuilder sb = new StringBuilder(); 
-        sb.append(word);
-        sb.append(letter == 'Q' ? "QU" : letter);
-        return sb.toString();
+        if (letter == 'Q')
+            return word + "QU";
+        else
+            return word + letter;
     }
     
     private boolean isValid(String word) {
@@ -117,11 +111,11 @@ public class BoggleSolver {
         BoggleBoard board = new BoggleBoard(boardFile);
         long startTime = System.currentTimeMillis();
         int score = 0;
-        for(int i = 0; i< 3000; i++)
-        for (String word : solver.getAllValidWords(board)) {
-            //StdOut.println(word);
-            score += solver.scoreOf(word);
-        }
+        for (int i = 0; i < 3000; i++)
+            for (String word : solver.getAllValidWords(board)) {
+                // StdOut.println(word);
+                score += solver.scoreOf(word);
+            }
         long endTime = System.currentTimeMillis();
         long seconds = (endTime - startTime) / 10;
         StdOut.println("Score = " + score);
